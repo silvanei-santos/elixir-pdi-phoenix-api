@@ -7,6 +7,8 @@ defmodule ElixirPdiPhoenixApiWeb.Router do
 
   scope "/api", ElixirPdiPhoenixApiWeb do
     pipe_through :api
+
+    resources "/users", UsersController, only: [:create]
   end
 
   # Enable LiveDashboard in development
