@@ -3,7 +3,7 @@ defmodule ElixirPdiPhoenixApiWeb.UsersJSON do
 
   def create(%{user: user}) do
     %{
-      message: "User criated with success!",
+      message: "User created with success!",
       data: data(user)
     }
   end
@@ -15,9 +15,9 @@ defmodule ElixirPdiPhoenixApiWeb.UsersJSON do
   defp data(%User{} = user) do
     %{
       id: user.id,
-      cep: user.cep,
+      name: user.name,
       email: user.email,
-      name: user.name
+      cep: user.cep
     }
   end
 end
