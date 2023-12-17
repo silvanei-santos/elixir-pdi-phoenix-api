@@ -10,6 +10,7 @@ defmodule ElixirPdiPhoenixApiWeb.UsersJSON do
 
   def get(%{user: user}), do: %{data: data(user)}
   def update(%{user: user}), do: %{message: "User updated with success!", data: data(user)}
+  def delete(%{user: user}), do: %{data: data(user)}
 
   defp data(%User{} = user) do
     %{
