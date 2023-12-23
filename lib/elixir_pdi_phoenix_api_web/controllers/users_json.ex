@@ -8,6 +8,13 @@ defmodule ElixirPdiPhoenixApiWeb.UsersJSON do
     }
   end
 
+  def login(%{token: token}) do
+    %{
+      message: "User authenticated with success!",
+      bearer: token
+    }
+  end
+
   def get(%{user: user}), do: %{data: data(user)}
   def update(%{user: user}), do: %{message: "User updated with success!", data: data(user)}
   def delete(%{user: user}), do: %{data: data(user)}
