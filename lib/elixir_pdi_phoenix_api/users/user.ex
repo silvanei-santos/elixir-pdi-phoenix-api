@@ -6,7 +6,7 @@ defmodule ElixirPdiPhoenixApi.Users.User do
   alias Ecto.Changeset
 
   @required_params [:name, :password, :email, :cep]
-  @required_params_update [:name, :email, :cep]
+  @required_params_update [:name, :cep]
 
   schema "users" do
     field :name, :string
@@ -23,12 +23,13 @@ defmodule ElixirPdiPhoenixApi.Users.User do
     %__MODULE__{}
     |> cast(params, @required_params)
     |> do_validate(@required_params)
+    |> unique_constraint(:email, name: :user_email_unique)
     |> add_password_hash()
   end
 
   def changeset(user, params) do
     user
-    |> cast(params, @required_params)
+    |> cast(params, @required_params_update)
     |> do_validate(@required_params_update)
     |> add_password_hash()
   end
