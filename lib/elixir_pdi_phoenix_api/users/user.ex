@@ -2,6 +2,7 @@ defmodule ElixirPdiPhoenixApi.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias ElixirPdiPhoenixApi.Accounts.Account
   alias Ecto.Changeset
 
   @required_params [:name, :password, :email, :cep]
@@ -13,6 +14,7 @@ defmodule ElixirPdiPhoenixApi.Users.User do
     field :password_hash, :string
     field :email, :string
     field :cep, :string
+    has_one :account, Account
 
     timestamps()
   end
