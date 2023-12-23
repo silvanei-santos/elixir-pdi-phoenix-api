@@ -24,9 +24,8 @@ defmodule ElixirPdiPhoenixApiWeb.ErrorJSON do
     }
   end
 
-  def error(%{status: status}) do
-    %{status: status}
-  end
+  def error(%{status: status}), do: %{status: status}
+  def error(%{message: message}), do: %{message: message}
 
   defp translate_error({msg, opts}) do
     Regex.replace(~r"%{(\w+)}", msg, fn _, key ->
