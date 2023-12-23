@@ -3,6 +3,7 @@ defmodule ElixirPdiPhoenixApiWeb.UsersControllerTest do
 
   import Mox
 
+  alias ElixirPdiPhoenixApiWeb.Token
   alias ElixirPdiPhoenixApi.Users
   alias ElixirPdiPhoenixApi.Users.User
 
@@ -91,10 +92,12 @@ defmodule ElixirPdiPhoenixApiWeb.UsersControllerTest do
         {:ok, body}
       end)
 
-      {:ok, %User{id: id}} = Users.create(params)
+      {:ok, %User{id: id} = user} = Users.create(params)
+      token = Token.sign(user)
 
       response =
         conn
+        |> put_req_header("authorization", "Bearer " <> token)
         |> delete(~p"/api/users/#{id}")
         |> json_response(:ok)
 

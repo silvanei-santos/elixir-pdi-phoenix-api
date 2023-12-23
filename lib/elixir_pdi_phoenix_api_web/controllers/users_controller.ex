@@ -3,6 +3,7 @@ defmodule ElixirPdiPhoenixApiWeb.UsersController do
 
   alias ElixirPdiPhoenixApi.Users
   alias ElixirPdiPhoenixApi.Users.User
+  alias ElixirPdiPhoenixApiWeb.Token
 
   action_fallback ElixirPdiPhoenixApiWeb.FallbackController
 
@@ -19,6 +20,16 @@ defmodule ElixirPdiPhoenixApiWeb.UsersController do
       conn
       |> put_status(:ok)
       |> render(:delete, user: user)
+    end
+  end
+
+  def login(conn, params) do
+    with {:ok, %User{} = user} <- Users.login(params) do
+      token = Token.sign(user)
+
+      conn
+      |> put_status(:ok)
+      |> render(:login, token: token)
     end
   end
 

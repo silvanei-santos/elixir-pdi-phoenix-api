@@ -1,14 +1,27 @@
 defmodule ElixirPdiPhoenixApiWeb.Router do
+  alias ElixirPdiPhoenixApiWeb.Plugs.Auth
   use ElixirPdiPhoenixApiWeb, :router
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug Auth
+  end
+
   scope "/api", ElixirPdiPhoenixApiWeb do
     pipe_through :api
 
-    resources "/users", UsersController, only: [:create, :update, :delete, :show]
+    resources "/users", UsersController, only: [:create]
+    post "/users/login", UsersController, :login
+  end
+
+  scope "/api", ElixirPdiPhoenixApiWeb do
+    pipe_through [:api, :auth]
+
+    resources "/users", UsersController, only: [:update, :delete, :show]
+
     post "/accounts", AccountsController, :create
     post "/accounts/transaction", AccountsController, :transaction
   end
