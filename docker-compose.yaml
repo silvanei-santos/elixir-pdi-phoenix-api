@@ -1,0 +1,22 @@
+version: "3"
+services:
+  app:
+    image: elixir-pdi-phoenix-api:0.0.1
+    build: 
+      context: .
+    environment:
+      PHX_HOST: "0.0.0.0"
+      PHX_SERVER: "true"
+      DATABASE_HOST: "db"
+      DATABASE_URL: "ecto://postgres:postgres@db/elixir_pdi_phoenix_api"
+      SECRET_KEY_BASE: "NdaT2Ng/s69ImgIQEy1ToJlVgB2yg/rEvyoBYw+pd24TzML5kh4RdpAbSKvoWGKm"
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+  db: 
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: elixir_pdi_phoenix_api
